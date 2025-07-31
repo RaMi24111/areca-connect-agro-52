@@ -40,16 +40,21 @@ const UserCheckout = () => {
       return;
     }
     const profile = JSON.parse(userData);
-    setUserProfile(profile);
     
-    // Set custom address from profile
+    // Load complete profile data including address
+    const completeProfileData = localStorage.getItem('userProfileComplete');
+    const completeProfile = completeProfileData ? JSON.parse(completeProfileData) : profile;
+    
+    setUserProfile(completeProfile);
+    
+    // Set custom address from complete profile
     setCustomAddress({
-      name: profile.name || "",
-      phone: profile.phone || "",
-      address: profile.address || "",
-      city: profile.city || "",
-      state: profile.state || "",
-      pincode: profile.pincode || ""
+      name: completeProfile.name || "",
+      phone: completeProfile.contact || completeProfile.phone || "",
+      address: completeProfile.address || "",
+      city: completeProfile.city || "",
+      state: completeProfile.state || "",
+      pincode: completeProfile.pincode || ""
     });
 
     // Get checkout items from location state or cart
@@ -88,7 +93,7 @@ const UserCheckout = () => {
 
     const address = useProfileAddress ? {
       name: userProfile.name,
-      phone: userProfile.phone,
+      phone: userProfile.contact || userProfile.phone,
       address: userProfile.address,
       city: userProfile.city,
       state: userProfile.state,
@@ -232,7 +237,7 @@ const UserCheckout = () => {
                   {useProfileAddress ? (
                     <div className="p-4 bg-gray-50 rounded-lg">
                       <p className="font-semibold">{userProfile.name}</p>
-                      <p>{userProfile.phone}</p>
+                      <p>{userProfile.contact || userProfile.phone}</p>
                       <p>{userProfile.address}</p>
                       <p>{userProfile.city}, {userProfile.state} - {userProfile.pincode}</p>
                     </div>
