@@ -91,8 +91,12 @@ const UserDashboard = () => {
   };
 
   const handleBuyProduct = (product: any) => {
-    setSelectedProduct(product);
-    setShowCheckout(true);
+    // Navigate to checkout page with the selected product
+    navigate('/user/checkout', { 
+      state: { 
+        items: [{ ...product, quantity: 1 }] 
+      } 
+    });
   };
 
   const handleConfirmOrder = () => {

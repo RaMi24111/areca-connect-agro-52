@@ -255,10 +255,12 @@ const UserHome = () => {
   };
 
   const handleBuyNow = (product: any) => {
-    // After purchase is complete, navigate to orders page
-    setTimeout(() => {
-      navigate('/user/orders');
-    }, 2000); // Small delay to show the success toast
+    // Navigate to checkout page with the selected product
+    navigate('/user/checkout', { 
+      state: { 
+        items: [{ ...product, quantity: 1 }] 
+      } 
+    });
   };
 
   const handleRemoveFromWishlist = (productId: number) => {
