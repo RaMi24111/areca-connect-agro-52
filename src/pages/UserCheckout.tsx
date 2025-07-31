@@ -99,7 +99,7 @@ const UserCheckout = () => {
     if (!address.name || !address.phone || !address.address || !address.city || !address.state || !address.pincode) {
       toast({
         title: "Incomplete Address",
-        description: "Please fill in all address fields",
+        description: useProfileAddress ? "Please update your profile with complete address details" : "Please fill in all address fields",
         variant: "destructive"
       });
       return;
